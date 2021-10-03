@@ -1,8 +1,8 @@
 import random
 from itertools import cycle
 
-MAX_NUM = 2560
-CHARS_IN_UTF = 137994
+MAX_NUM = 255
+CHARS_IN_UTF = 255  # 137994
 
 
 def decrypt(text: str, gamma):
@@ -11,6 +11,26 @@ def decrypt(text: str, gamma):
         l = (ord(text[i]) ^ gamma[i]) % CHARS_IN_UTF
         result += chr(l)
     return result
+
+
+def get_byte(c_num: int = -1, char: str = None):
+    if c_num == -1:
+        c_num = ord(char)
+    a = [0, 0, 0, 0, 0, 0, 0, 0]
+    c = a
+    if c_num > 255:
+        for i in range(c_num // 255 - 1):
+            c += a
+        if c_num % 255 > 0:
+            c += a
+
+    ch_bin = bin(c_num)[2:]
+    for i in range(len(ch_bin)):
+        c[len(c) - 1 - i] = int(ch_bin[i])
+    c_str = ''
+    for n in c:
+        c_str += str(n)
+    return c_str
 
 
 def crypt(text: str, key: str):
