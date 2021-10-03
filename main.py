@@ -6,14 +6,6 @@ MAX_NUM = 255
 CHARS_IN_UTF = 255  # 137994
 
 
-def decrypt(text: str, gamma):
-    result = ''
-    for i in range(len(text)):
-        l = (ord(text[i]) ^ gamma[i]) % CHARS_IN_UTF
-        result += chr(l)
-    return result
-
-
 def get_byte(char: str = None, num: int = -1):
     if num == -1:
         num = ord(char)
@@ -36,7 +28,7 @@ def get_byte(char: str = None, num: int = -1):
     return c_str
 
 
-def crypt(text: str, key: str='', debug=False, decrypt=False, gamma=None):
+def crypt(text: str, key: str='', debug=False, gamma=None):
     result = ''
     rands = []
     if gamma is not None:
@@ -66,7 +58,7 @@ def get_letters_codes(text):
     return result
 
 
-key = 'whatever text is here is a key 7128%*$^#'
+key = '111'
 phrase = 'hello world'
 
 print("Исходный текст: '" + phrase + "'")
